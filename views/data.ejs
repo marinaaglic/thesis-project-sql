@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <title>Podaci</title>
+    <script src="js/functions.js"></script>
+</head>
+<body>
+    <header>
+    <a href='/logout'><input type="button" class="odjavaBotun" value="Odjava"></a> 
+    <h3> Prijavljeni ste kao: <%= username %> </h3> 
+    </header>
+    <h1> PRIKAZ PODATAKA</h1> <br>
+    <form class="data-form" action="/status" method="post">
+        <!-- <button class="ucitajBotun" onclick="sendGetRequestKolegiji()">Učitaj kolegije</button><br><br><br> -->
+        <label for="kolegiji" class="kolegiji">Kolegiji:</label>
+        <select name="cmb" class="cmb" id="kolegiji">
+          <option>Odaberite kolegij</option>
+          <% for (let i=0; i < kolegiji.length; i++) { %>
+              <option value="<%= kolegiji[i].ID_kolegij %>"> <%= kolegiji[i].Naziv %></option>
+          <% } %>
+      </select>
+      
+        <br><br><br><br>
+        <input type="submit" class="prikaziBotun" value="Prikaži podatke">
+        <br><br><br>
+        <table class="status" id="statusTable">
+            <tr>
+            <th></th><th></th><th></th><th>Ime</th><th>Prezime</th><th>Datum</th><th>Bodovi</th><th>Postotak</th><th>Ocjena</th><th>Kolokvij/Ispit</th>
+            </tr>
+            <% for (let i = 0; i < status.length; i++) { %>
+                
+                <tr> 
+                <td> <button id="<%= status[i].ID_student %>" name="info"  type="button" value="<%= status[i].ID_student %>" title="Get info" class="btn" onclick="sendGetRequestInfo('<%= status[i].ID_student %>')"><i class="fa fa-info"></i> </button></td>
+                <td> <button id="edit_<%= status[i].ID_status %>" name="edit" type="button" value="<%= status[i].ID_status %>" title="Edit" class="btn" onclick="sendUpdateRequest('<%= status[i].ID_status %>')"><i class="fa fa-edit"></i> </button> </td>
+                <td> <button id="<%= status[i].ID_status %>" name="delete" type="button" value="<%= status[i].ID_status %>" title="Delete" class="btn"  type="button" onclick="sendDeleteRequest('<%= status[i].ID_status %>')"><i class="fa fa-trash"></i> </button></td>
+                  <td><%= status[i].Ime %></td>
+                  <td><%= status[i].Prezime %></td>
+                  <td><%= status[i].Datum %></td>
+                  <td><%= status[i].Bodovi %></td>
+                  <td><%= status[i].Postotak ? status[i].Postotak + "%" : "" %></td>
+                  <td><input type="number" id="ocjena_<%= status[i].ID_status %>" name="ocjena" value="<%= status[i].Oznaka %>" ></td>
+                  <td><%= status[i].Naziv %></td>
+                </tr>    
+               <% } %>
+        </table>
+        <br><br>
+        <div id="overlay" class="div-overlay" onclick="Sakrij()">
+            <div id="toggle" class="div-toggle">
+              <table class="info" id="info_table"></table>
+              <button type="button" class="btnSakrij" onclick="Sakrij()"> OK</button>
+            </div> 
+          </div> 
+    </form>
+    <br><br>
+</body>
+</html>
