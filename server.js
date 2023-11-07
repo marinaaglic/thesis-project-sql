@@ -9,7 +9,6 @@ const bodyParser = require('body-parser');
 var kolegiji = [];
 var status = [];
 var infoStudenta = [];
-//const idStudent;
 var username;
 require('dotenv').config();
 const JSON_COLUMN_KEY = process.env.JSON_COLUMN_KEY;
@@ -36,12 +35,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.raw());
 app.use(bodyParser.text());
 
-//LOGIN
 app.get("/", (req, res) => {
     res.render("login");
 })
 
-//LOGOUT
 app.get('/logout', (req, res) => {
     res.redirect("/");
     kolegiji = []
@@ -50,7 +47,6 @@ app.get('/logout', (req, res) => {
     infoStudenta = []
 })
 
-//LOGIN 
 app.post('/login', function (req, res) {
     username = req.body.username;
     const password = req.body.password;
@@ -81,7 +77,6 @@ app.post('/login', function (req, res) {
     }
 });
 
-//PRIKAZ KOLEGIJA PROFESORA
 app.get('/kolegiji', function (req, res) {
     const id = globalID_prof;
     const request = new sql.Request();
@@ -202,7 +197,6 @@ app.get('/info', function (req, res) {
         });
 });
 
-//DELETE
 app.delete('/deleteStatus/:idStatus', function (req, res) {
     const idStatus = req.params.idStatus;
     const startTime = performance.now();
@@ -221,7 +215,6 @@ app.delete('/deleteStatus/:idStatus', function (req, res) {
         })
 });
 
-//UPDATE
 app.post('/updateOcjena/:idStatus', function (req, res) {
     const idStatus = req.params.idStatus;
     const ocjena = req.body.ocjena;

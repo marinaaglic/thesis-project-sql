@@ -1,4 +1,3 @@
-//FUNKCIJA ZA UČITAT KOLEGIJE U COMBOBOX
 function sendGetRequestKolegiji() {
   fetch("/kolegiji")
     .then((response) => response.json())
@@ -22,12 +21,10 @@ function sendGetRequestKolegiji() {
     });
 }
 
-//FUNKCIJA ZA DOBIT INFO STUDENTA
 function sendGetRequestInfo(studentId) {
   fetch("/info?id=" + studentId)
     .then((response) => response.json())
     .then((data) => {
-      //sconsole.log(data);
       displayInfoTable(data);
     })
     .catch((error) => {
@@ -35,7 +32,6 @@ function sendGetRequestInfo(studentId) {
     });
 }
 
-//FUNKCIJA ZA PRIKAZ PODATAKA OD INFO STUDENTA
 function displayInfoTable(data) {
   document.getElementById("overlay").style.display = "block";
   var toggle = document.getElementById("toggle");
@@ -62,11 +58,10 @@ function displayInfoTable(data) {
   }
 }
 
-function Sakrij() {
+function Hide() {
   document.getElementById("overlay").style.display = "none";
 }
 
-//FUNKCIJA ZA BRISANJE
 function sendDeleteRequest(statusId) {
   fetch("/deleteStatus/" + statusId, {
     method: "DELETE"
@@ -83,8 +78,6 @@ function sendDeleteRequest(statusId) {
     })
     .catch((error) => console.log(error));
 }
-
-
 
 function sendUpdateRequest(idStatus) {
   var ocjena = document.getElementById("ocjena_" + idStatus).value;
@@ -114,7 +107,6 @@ function sendUpdateRequest(idStatus) {
       console.log('Error:', error);
     });
 }
-
 
 window.onload = function () {
   sendGetRequestKolegiji();
